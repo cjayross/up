@@ -28,7 +28,6 @@ up() {
 
   if [ -z $1 ]; then
     cd ..
-    return 0
   elif [[ $1 =~ ^[0-9]+$ ]]; then
     dir=$PWD`echo $(yes '/..' | head -n $1) | sed 's/ //g'`
     cd $dir
