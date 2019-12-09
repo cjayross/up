@@ -33,12 +33,12 @@ up() {
     dir=$PWD`echo $(yes '/..' | head -n $1) | sed 's/ //g'`
     cd $dir
   else
-    dir=${PWD%$1*}$1
-    cd $dir &>/dev/null
-    if [[ $? != 0 ]]; then
+    if [[ ! $PWD =~ /$1(/|$) ]]; then
       echo 'up: '$1': could not find directory.'
       return 1
     fi
+    dir=${PWD%$1*}$1
+    cd $dir &>/dev/null
   fi
 }
 
