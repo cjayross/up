@@ -31,15 +31,19 @@ up() {
   elif [[ $1 =~ ^[0-9]+$ ]]; then
     dir=$PWD`echo $(yes '/..' | head -n $1) | sed 's/ //g'`
     cd $dir
-  elif [[ $1 == $HOME && $PWD =~ $HOME ]]; then
-    cd $HOME
+  elif [[ $1 =~ $HOME && $PWD =~ $HOME ]]; then
+    cd $1
   else
-    if [[ ! $PWD =~ /$1(/|$) ]]; then
-      echo 'up: '$1': could not find directory.'
+    base=${1%%/*}
+    if [[ ! $PWD =~ /$base(/|$) ]]; then
+      echo 'up: '$1': could not find directory in $PWD.'
       return 1
     fi
-    dir=${PWD%$1*}$1
+    dir=${PWD%$base*}$1
     cd $dir &>/dev/null
+    if [[ $? != 0 ]]; then
+      echo 'up: '${PWD%$base*}$1': no such directory.'
+    fi
   fi
 }
 

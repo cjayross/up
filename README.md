@@ -9,7 +9,10 @@ There are three ways to invoke `up`:
 + by specifying an argument, you can go up that number of directories
     - for example, using `up 2` will go up two directories
 + by specifying a directory name, you can jump back to the specified directory
-    - for example, if you are in `~/src/zsh/up`, then using `up src` brings you to `~/src`
+    - for example, if you are in `~/src/zsh/up`, then using `up src` brings you
+      to `~/src`
+    - additionally, if you are in `~/src/zsh/up`, then using `up src/bash`
+      brings you to `~/src/bash` (assuming that the directory exists)
 
 ## Installation
 ### Using [zplug](https://github.com/zplug/zplug)
