@@ -31,7 +31,7 @@ up() {
   elif [[ $1 =~ ^[0-9]+$ ]]; then
     dir=$PWD`echo $(yes '/..' | head -n $1) | sed 's/ //g'`
     cd $dir
-  elif [[ $1 =~ $HOME && $PWD =~ $HOME ]]; then
+  elif [[ $1 == / || $1 =~ $HOME && $PWD =~ $HOME ]]; then
     cd $1
   else
     base=${1%%/*}
