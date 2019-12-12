@@ -1,7 +1,16 @@
 _up() {
   local -a args
   args=(`echo ${PWD#/} | sed 's/\// /g'`)
-  _arguments ':paths:($args[@])'
+  _path_seq() {
+    local base=${words[2]%%/*}
+    if [[ $PWD =~ /$base(/|$) ]]; then
+      _path_files -W ${PWD%$base*}${words[2]%/*} -/
+    else
+      compadd -qS / -a - args
+    fi
+  }
+  
+  _sequence -s / _path_seq
 }
 
 up() {
@@ -26,6 +35,11 @@ up() {
     shift
   done
 
+  if (( $# > 1 )); then
+    echo 'up: trailing arguments.'
+    return 1
+  fi
+
   if [ -z $1 ]; then
     cd ..
   elif [[ $1 =~ ^[0-9]+$ ]]; then
@@ -42,7 +56,7 @@ up() {
     dir=${PWD%$base*}$1
     cd $dir &>/dev/null
     if [[ $? != 0 ]]; then
-      echo 'up: '${PWD%$base*}$1': no such directory.'
+      echo 'up: '$dir': no such directory.'
     fi
   fi
 }
