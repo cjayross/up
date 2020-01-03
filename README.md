@@ -1,18 +1,31 @@
 # Up
-> an easier way to go up a directory
+> an easier way to navigate up directories
 
 ## Usage
-[![asciicast](https://asciinema.org/a/ywaGKlMRHD2QySmL5CdisSwks.svg)](https://asciinema.org/a/ywaGKlMRHD2QySmL5CdisSwks)
+There are three ways to invoke `up`: without arguments, with an integer
+argument, with a name of a path beginning with a directory in the current
+path.
 
-There are three ways to invoke `up`:
-+ without arguments, it is an alias for `cd ..`
-+ by specifying an argument, you can go up that number of directories
-    - for example, using `up 2` will go up two directories
-+ by specifying a directory name, you can jump back to the specified directory
-    - for example, if you are in `~/src/zsh/up`, then using `up src` brings you
-      to `~/src`
-    - additionally, if you are in `~/src/zsh/up`, then using `up src/bash`
-      brings you to `~/src/bash` (assuming that the directory exists)
+### Without arguments
+```bash
+~/one/two
+$ up
+~/one
+```
+
+### With an integer argument
+```bash
+~/one/two/three
+$ up 2
+~/one
+```
+
+### With a path argument
+```bash
+~/one/left/two/three
+$ up one/right
+~/one/right
+```
 
 ## Installation
 ### Using [zplug](https://github.com/zplug/zplug)
