@@ -4,7 +4,7 @@ _up() {
     _path_seq() {
         local base=${words[2]%%/*}
         if [[ $PWD =~ /$base(/|$) ]]; then
-            _path_files -W ${PWD%$base*}${words[2]%/*} -/
+            _path_files -W ${PWD%/$base*}/${words[2]%/*} -/
         else
             compadd -qS / -a - args
         fi
@@ -52,7 +52,7 @@ up() {
             echo 'up: '$1': could not find directory in $PWD.'
             return 1
         fi
-        dir=${PWD%$base*}$1
+        dir=${PWD%/$base*}/$1
         cd $dir &>/dev/null
         if [[ $? != 0 ]]; then
             echo 'up: '$dir': no such directory.'
