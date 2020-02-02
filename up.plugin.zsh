@@ -49,7 +49,7 @@ up() {
     else
         base=${1%%/*}
         if [[ ! $PWD =~ /$base(/|$) ]]; then
-            echo 'up: '$1': could not find directory in $PWD.'
+            echo 'up: '$base': could not find directory in $PWD.'
             return 1
         fi
         dir=${PWD%/$base*}/$1
