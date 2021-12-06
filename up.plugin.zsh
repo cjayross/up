@@ -1,17 +1,3 @@
-_up() {
-    local -a args
-    args=(`echo ${PWD#/} | sed 's/\// /g'`)
-    _path_seq() {
-        local base=${words[2]%%/*}
-        if [[ $PWD =~ /$base(/|$) ]]; then
-            _path_files -W ${PWD%/$base*}/${words[2]%/*} -/
-        else
-            compadd -qS / -a - args
-        fi
-    }
-    _sequence -s / _path_seq
-}
-
 up() {
     local dir
 
@@ -59,5 +45,3 @@ up() {
         fi
     fi
 }
-
-compdef _up up
